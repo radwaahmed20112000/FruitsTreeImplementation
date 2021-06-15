@@ -1,0 +1,5 @@
+package FruitsTypes
+
+class FruitsType {
+
+}
