@@ -1,3 +1,0 @@
-C:/Users/omara/CLionProjects/FruitTree/cmake-build-debug/CMakeFiles/FruitTree.dir
-C:/Users/omara/CLionProjects/FruitTree/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/omara/CLionProjects/FruitTree/cmake-build-debug/CMakeFiles/rebuild_cache.dir
