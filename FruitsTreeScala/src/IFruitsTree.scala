@@ -6,7 +6,7 @@ trait IFruitsTree {
   /**
    * a method that prints the in-order traversal of the tree
    */
-  def iterate(fruit:Fruit)
+  def iterate()
 
   /**
    * Method that prints the nodes of a given fruit type ordered by. weight.
