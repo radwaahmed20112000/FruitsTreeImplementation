@@ -7,4 +7,9 @@ class Apple extends Fruit{
 
   override var fruitsTypes: Array[FruitsType] = Array(new Oval())
 
+  override def copy(): Fruit = {
+    var apple = new Apple()
+    apple.setWeight(this.weight)
+    apple
+  }
 }

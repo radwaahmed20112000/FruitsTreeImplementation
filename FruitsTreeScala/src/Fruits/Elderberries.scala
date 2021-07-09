@@ -6,5 +6,10 @@ class Elderberries extends Fruit {
 
   override var fruitName: String = "Elderberry"
   override var fruitsTypes: Array[FruitsType] = Array(new Berry(),new Tiny())
+  override def copy(): Fruit = {
+    var fruit = new Elderberries()
+    fruit.setWeight(this.weight)
+    fruit
+  }
 
 }

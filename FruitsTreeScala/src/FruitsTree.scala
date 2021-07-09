@@ -1,57 +1,58 @@
 import Fruits.{Apple, Fruit}
 import FruitsTypes.FruitsType
-import com.sun.tools.javac.code.TypeTag
 
-import scala.reflect.runtime.universe.typeOf
 
 class FruitsTree extends IFruitsTree {
 
   private var fruit: Fruit = _
-  private var fruits: List[Fruit] = _
-  private var newTree = new FruitsTree()
+  private var fruits: Array[Fruit] = _
+  private var tree: FruitsTree = _
 
-  override def iterate(): Unit = inorderTraverse(fruit,"iterate")(TypeTag[String])
+  override def iterate(): Unit = inorderTraverse(fruit,-1)
 
-  def inorderTraverse[A : TypeTag](fruit: Fruit ,callback: A,Type: Fruit = null): Unit = {
-    if (fruit == null){
+  def inorderTraverse(fruit: Fruit ,method:Int ,Type:Fruit = null,filterFunction: (Fruit,Fruit) => Boolean = null) {
+    if (fruit == null) {
       return
     }
-    inorderTraverse(fruit.getLeft(),callback,Type)
-    typeOf[A] match{
-      case t if t =:= typeOf[Fruit => String] =>
-        if(callback.asInstanceOf[Fruit => String](fruit).equalsIgnoreCase(callback.asInstanceOf[Fruit => String](Type))) {
-          fruits :+ fruit
-        }
-      case t if t =:= typeOf[String] => print(fruit.getWeight() + " ")
-      case t if t =:= typeOf[Int] =>
-        if(fruit.getClass == Type.getClass) {
-          fruit.setWeight(fruit.getWeight() + callback)
-        }
-        newTree.insert(fruit)
+    inorderTraverse(fruit.getLeft(),method,Type,filterFunction)
+    method match {
+      case -1 => print(fruit.getWeight() + " ")
+      case -2 => if(filterFunction(fruit,Type)){  fruits :+= fruit }
+      case _ => if(fruit.getClass.equals(Type.getClass)) { fruit.setWeight(fruit.getWeight() + method)}
+        val node : Fruit = fruit.copy()
+        this.tree.insert(node)
     }
-    inorderTraverse(fruit.getRight(),callback,Type)
+    inorderTraverse(fruit.getRight(),method,Type,filterFunction)
   }
 
-  override def filterByType(fruit: Fruit): List[Fruit] = {
-    fruits = List()
-    inorderTraverse(this.fruit, getName, fruit)(TypeTag[TypeTag[Fruit => String]])
+
+  override def filterByType(fruit: Fruit): Array[Fruit] = {
+    fruits = Array()
+    inorderTraverse(this.fruit,-2,fruit, checkType)
     fruits
   }
 
-  override def filterByWeight(weight : Int): List[Fruit] ={
-    fruits = List()
-    var newFruit : Fruit = new Apple()
-    newFruit.setWeight(weight)
-    inorderTraverse(this.fruit,getWeight,newFruit)(TypeTag[Fruit => String])
+  override def filterByWeight(weight : Int): Array[Fruit] ={
+    fruits = Array()
+    var Type : Fruit = new Apple()
+    Type.setWeight(weight)
+    inorderTraverse(this.fruit,-2,Type, checkWeight)
     fruits
   }
 
-  //TODO
-  override def magnifyByType(fruit: Fruit, weight: Int) {
-    inorderTraverse(this.fruit,weight,fruit)(TypeTag[Int])
-    newTree
+  override def magnifyByType(fruit: Fruit, weight: Int) = {
+    tree = new FruitsTree()
+    inorderTraverse(this.fruit,weight,fruit)
+    this.fruit = tree.fruit
+//    fruits = Array()
+//    inorderTraverse(this.fruit,weight,fruit)
+//    for(node <- fruits){
+//      deleteNode(node)
+//      node.setWeight(node.getWeight() + weight)
+//      insert(node)
+//    }
   }
-//start
+
   override def findHeaviest(): Int = find(fruit,_.getRight)
 
   override def findLightest(): Int = find(fruit,_.getLeft)
@@ -61,6 +62,34 @@ class FruitsTree extends IFruitsTree {
       return fruit.getWeight()
     }
     find(callback(fruit),callback)
+  }
+
+  def deleteNode(fruit: Fruit): Unit = {
+    this.fruit = deleteRec(this.fruit, fruit)
+  }
+
+  def deleteRec(root: Fruit, fruit: Fruit): Fruit = {
+    if (root == null) return root
+    if (fruit.getWeight() < root.getWeight()) root.setLeft(deleteRec(root.getLeft(), fruit))
+    else if (fruit.getWeight() > root.getWeight()) root.setRight(deleteRec(root.getRight(), fruit))
+    else if(fruit == root){
+      if (root.getLeft() == null) return root.getRight()
+      else if (root.getRight() == null) return root.getLeft()
+      root.setWeight(minValue(root.getRight()))
+      root.setRight(deleteRec(root.getRight(), root))
+    }
+    root
+  }
+
+  def minValue(root: Fruit): Int = {
+    var minv = root.getWeight()
+    while ( {
+      root.getLeft() != null
+    }) {
+      minv = root.getLeft().getWeight()
+      this.fruit = root.getLeft()
+    }
+    minv
   }
 
   def insert(fruit: Fruit): Unit ={
@@ -79,7 +108,7 @@ class FruitsTree extends IFruitsTree {
       }
       insert(root.getLeft(), fruit)
     }
-    else if (fruit.getWeight() > root.getWeight()) {
+    else {
       if(root.getRight() == null){
         root.setRight(fruit)
         return
@@ -87,20 +116,9 @@ class FruitsTree extends IFruitsTree {
       insert(root.getRight(), fruit)
     }
   }
-//end
-  def getName(fruit: Fruit): String = fruit.getName()
 
-  def getWeight(fruit: Fruit): String = fruit.getWeight().toString
+  def checkWeight(fruit1: Fruit,fruit2: Fruit): Boolean = fruit1.getWeight() > fruit2.getWeight()
 
-  def foo[A : TypeTag](a: A): Int = typeOf[A] match {
-    case t if t =:= typeOf[Int => Int] => a.asInstanceOf[Int => Int](0)
-    case t if t =:= typeOf[Boolean => Int] => a.asInstanceOf[Boolean => Int](true)
-    case _ => 3
-  }
-
-  foo((i: Int) => i + 1)(TypeTag[Int => Int])
-  // res0: Int = 1
-
-
+  def checkType(fruit1: Fruit,fruit2: Fruit): Boolean = fruit1.getClass == fruit2.getClass
 
 }

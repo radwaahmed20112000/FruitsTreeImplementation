@@ -12,13 +12,13 @@ trait IFruitsTree {
    * Method that prints the nodes of a given fruit type ordered by. weight.
    * For example, get an ordered list of all apples in the tree.
    */
-  def filterByType(fruit : Fruit):List[Fruit]
+  def filterByType(fruit : Fruit):Array[Fruit]
 
   /**
    * Method that prints the nodes that have weight larger than the given amount ordered by wright.
    * For example, get an ordered list of all fruits in the tree that are heavier than 500 grams.
    */
-  def filterByWeight(weight : Int):List[Fruit]
+  def filterByWeight(weight : Int):Array[Fruit]
 
   /**
    * Method that increases the weight of the nodes of a given fruit type by the given amount.

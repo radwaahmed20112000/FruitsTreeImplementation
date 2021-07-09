@@ -28,5 +28,6 @@ abstract class Fruit {
   def setRight(fruit: Fruit) {
     right = fruit
   }
+  def copy():Fruit
 
 }
