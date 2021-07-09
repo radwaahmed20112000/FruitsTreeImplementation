@@ -6,32 +6,32 @@ class FruitsTree extends IFruitsTree {
   private var fruits: Array[Fruit] = _     //Array to hold Filtered Elements
   private var tree: FruitsTree = _         //New Tree after Magnification
 
-  override def iterate(): Unit = inorderTraverse(fruit,-1)
+  override def iterate(): Unit = inorderTraverse(fruit)
 
   /**
    * Recursive function to traverse through the tree and determine whether it would :
    * print tree elements , Filter tree by weight or type ,or Magnify type with weight
    */
-  def inorderTraverse(fruit: Fruit ,method:Int ,Type:Fruit = null,filterFunction: (Fruit,Fruit) => Boolean = null) {
+  def inorderTraverse(fruit: Fruit ,Type:Fruit = null ,method:Any = null ,filterFunction:(Fruit,Fruit) => Boolean = null) {
     if (fruit == null) {
       return
     }
-    inorderTraverse(fruit.getLeft,method,Type,filterFunction)
+    inorderTraverse(fruit.getLeft,Type,method,filterFunction)
 
     method match {
-      case -1 => print(fruit.getWeight + " ")
-      case -2 => if(filterFunction(fruit,Type)){  fruits :+= fruit }
-      case _ => if(fruit.getClass.equals(Type.getClass)) { fruit.setWeight(fruit.getWeight + method) }
+      case dataType: String => if(filterFunction(fruit,Type)){  fruits :+= fruit }
+      case dataType: Integer => if(fruit.getClass.equals(Type.getClass)) { fruit.setWeight(fruit.getWeight + method.asInstanceOf[Int]) }
         val node : Fruit = fruit.copy()
         this.tree.insert(node)
+      case _ => print(fruit.getWeight + " ")
     }
 
-    inorderTraverse(fruit.getRight,method,Type,filterFunction)
+    inorderTraverse(fruit.getRight,Type,method,filterFunction)
   }
 
   override def filterByType(fruit: Fruit): Array[Fruit] = {
     fruits = Array()
-    inorderTraverse(this.fruit,-2,fruit, checkType)
+    inorderTraverse(this.fruit,fruit,"Filter", checkType)
     fruits
   }
 
@@ -39,13 +39,13 @@ class FruitsTree extends IFruitsTree {
     fruits = Array()
     val Type: Fruit = new Apple()
     Type.setWeight(weight)
-    inorderTraverse(this.fruit,-2,Type, checkWeight)
+    inorderTraverse(this.fruit,fruit,"Filter", checkWeight)
     fruits
   }
 
   override def magnifyByType(fruit: Fruit, weight: Int) {
     tree = new FruitsTree()
-    inorderTraverse(this.fruit,weight,fruit)
+    inorderTraverse(this.fruit,fruit,weight)
     this.fruit = tree.fruit
   }
 
