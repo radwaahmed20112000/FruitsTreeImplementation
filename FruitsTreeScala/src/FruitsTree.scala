@@ -19,8 +19,8 @@ class FruitsTree extends IFruitsTree {
     inorderTraverse(fruit.getLeft,Type,method,filterFunction)
 
     method match {
-      case dataType: String => if(filterFunction(fruit,Type)){  fruits :+= fruit }
-      case dataType: Integer => if(fruit.getClass.equals(Type.getClass)) { fruit.setWeight(fruit.getWeight + method.asInstanceOf[Int]) }
+      case _: String => if(filterFunction(fruit,Type)){  fruits :+= fruit }
+      case _: Integer => if(fruit.getClass.equals(Type.getClass)) { fruit.setWeight(fruit.getWeight + method.asInstanceOf[Int]) }
         val node : Fruit = fruit.copy()
         this.tree.insert(node)
       case _ => print(fruit.getWeight + " ")
