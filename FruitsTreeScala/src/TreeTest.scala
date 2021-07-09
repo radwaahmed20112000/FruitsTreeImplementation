@@ -1,9 +1,9 @@
-import Fruits.{Apple, Avocado, Blueberries, Fruit, Orange}
-import com.sun.tools.javac.code.TypeTag
+import Fruits.{Apple, Avocado, Orange}
 
 object TreeTest  {
 
   def main(args: Array[String]): Unit = {
+
     val fruitsTree = new FruitsTree()
     val apple = new Apple()
     apple.setWeight(40)
@@ -17,19 +17,22 @@ object TreeTest  {
     fruitsTree.insert(avocado)
     fruitsTree.insert(orange)
     fruitsTree.insert(blueberry)
+
+    println("Inorder Traversal:")
     fruitsTree.iterate()
     fruitsTree.magnifyByType(new Orange(),50)
-    println("")
+    println("Magnify Orange with weight 50:")
     fruitsTree.iterate()
-    println("")
+    println("The Lightest Element in Tree:")
     println(fruitsTree.findLightest())
+    println("The Highest Element in Tree:")
     println(fruitsTree.findHeaviest())
+    println("Number of elements in list after filtering tree with Orange Type:")
     println(fruitsTree.filterByType(new Orange()).length)
+    println("Magnify Avocado with weight 50:")
     fruitsTree.magnifyByType(new Avocado(), 50)
     fruitsTree.iterate()
-    println("")
+    println("Number of elements in list after filtering tree with weight 50:")
     println(fruitsTree.filterByWeight(50).length)
-
-//    print(lis)
   }
 }
