@@ -29,17 +29,17 @@ class FruitsTree extends IFruitsTree {
     inorderTraverse(fruit.getRight,Type,method,filterFunction)
   }
 
-  override def filterByType(fruit: Fruit): Array[Fruit] = {
-    fruits = Array()
-    inorderTraverse(this.fruit,fruit,"Filter", checkType)
-    fruits
-  }
+  override def filterByType(fruit: Fruit): Array[Fruit] = filter(fruit,checkType)
 
   override def filterByWeight(weight : Int): Array[Fruit] ={
-    fruits = Array()
     val Type: Fruit = new Apple()
     Type.setWeight(weight)
-    inorderTraverse(this.fruit,fruit,"Filter", checkWeight)
+    filter(Type,checkWeight)
+  }
+
+  def filter(Type:Fruit,function : (Fruit,Fruit) => Boolean): Array[Fruit] ={
+    fruits = Array()
+    inorderTraverse(this.fruit,Type,"Filter", function)
     fruits
   }
 
