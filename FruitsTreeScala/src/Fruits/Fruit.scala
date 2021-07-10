@@ -24,4 +24,6 @@ abstract class Fruit {
   def setRight(fruit: Fruit) {
     right = fruit
   }
+
+  def getSubtypes : Array[FruitsType] = fruitsTypes
 }

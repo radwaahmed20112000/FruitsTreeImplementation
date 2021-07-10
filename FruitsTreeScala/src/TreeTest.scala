@@ -1,4 +1,5 @@
 import Fruits.{Apple, Avocado, Orange}
+import FruitsTypes.Oval
 
 object TreeTest  {
 
@@ -37,5 +38,6 @@ object TreeTest  {
     println("")
     println("Number of elements in list after filtering tree with weight 50:")
     println(fruitsTree.filterByWeight(50).length)
+
   }
 }
