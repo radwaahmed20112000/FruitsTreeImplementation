@@ -23,7 +23,7 @@ Object Oriented Features:
  Methods Implemtation:
  
 - Iterate();
-            a method that prints the in-order traversal of the tree.
+            - a method that prints the in-order traversal of the tree.
             
 - filterByType(Type);
             a method that prints the nodes of a given fruit type ordered by weight. For example, get an ordered list of all apples in the tree.
