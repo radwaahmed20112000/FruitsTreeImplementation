@@ -21,6 +21,6 @@ ObjectOrientedFeatures:
             5- Pattern Matching (applied in Scala)
             
      
-![FruitsTree](https://github.com/FruitsTree.png)
+![FruitsTree](https://github.com/radwaahmed20112000/FruitsTreeImplementation/blob/main/FruitsTree.PNG)
 
 
