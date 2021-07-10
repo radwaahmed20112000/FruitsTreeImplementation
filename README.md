@@ -21,6 +21,6 @@ ObjectOrientedFeatures:
             5- Pattern Matching (applied in Scala)
             
      
-![alt text](https://github.com/[username]/[FruitsTreeImplementation]/blob/[branch]/FruitsTree.PNG?raw=true)
+![Image of Yaktocat](https://octodex.github.com/FruitsTree.png)
 
 
