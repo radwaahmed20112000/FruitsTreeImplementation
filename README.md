@@ -22,7 +22,7 @@ Object Oriented Features:
             
  Methods Implemtation:
  
-            - Iterate();
+            - **Iterate();**
             a method that prints the in-order traversal of the tree.
             
             - filterByType(Type);
