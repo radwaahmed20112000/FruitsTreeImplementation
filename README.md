@@ -19,4 +19,8 @@ ObjectOrientedFeatures:
             4- Higher order functions (applied in JavaScript, Scala)
 
             5- Pattern Matching (applied in Scala)
+            
+     
+![alt text](https://github.com/[username]/[FruitsTreeImplementation]/blob/[branch]/FruitsTree.PNG?raw=true)
+
 
