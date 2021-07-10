@@ -8,10 +8,14 @@ Fruit.prototype = {
     superType: undefined,
     type: undefined,
 
-    setWeight: function(x) { this.weight = x; },
-    incWeight: function(x) { this.weight = this.getWeight() + x; },
+    setWeight: function(x) { this.weight = x; }, 
+
+    // 2 - HigherOrderFunction feature (Function Implementation)
+
+    incWeight: function(x, y) { this.weight = y(this.weight) + x; },
+
     getWeight: function() { return this.weight; },
-    getSuperType: function() { return this.superType; },
+    getSuperType: function() {},
     getType: function() { return this.type; },
 
     // Node Extentions
@@ -31,6 +35,7 @@ function Tiny() {}
 Tiny.prototype = {
     __proto__: Fruit.prototype,
     superType: "tiny",
+    // Overriding Feature Application
     getSuperType: function() { return "tiny"; }
 }
 
@@ -38,6 +43,7 @@ function Large() {}
 Large.prototype = {
     __proto__: Fruit.prototype,
     superType: "large",
+    // Overriding Feauture Application
     getSuperType: function() { return "large"; }
 }
 
@@ -45,6 +51,7 @@ function Oval() {}
 Oval.prototype = {
     __proto__: Fruit.prototype,
     superType: "oval",
+    // Overriding Feature Application
     getSuperType: function() { return "oval"; }
 }
 
@@ -52,6 +59,7 @@ function NotOval() {}
 NotOval.prototype = {
     __proto__: Fruit.prototype,
     superType: "notoval",
+    // Overriding Feature Application
     getSuperType: function() { return "notoval"; }
 }
 
@@ -313,11 +321,17 @@ BinarySearchTree.prototype = {
         };
         // Inorder Traversal of the tree 
         traverse(current);
+        
+        // 3 - HigherOrderFunction Method (Used Parameter Function)
+        var getSpecialWeight =  function(x) { return x; };
+
         var j=0; 
         for(var i = 0; i < result.length; i++){
             // check if the entered type is existed in the tree to increase it
             if(result[i].getType() == type || result[i].getSuperType() == type) {
-                result[i].incWeight(weight);
+                
+                // 1 - HigherOrderFunction Method Calling
+                result[i].incWeight(weight, getSpecialWeight);
             }
             else {
                 j++;
