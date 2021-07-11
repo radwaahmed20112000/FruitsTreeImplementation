@@ -20,7 +20,9 @@ Object Oriented Features:
 
             5- Pattern Matching (applied in Scala)
             
- Methods Implemtation:
+![FruitsTree](https://github.com/radwaahmed20112000/FruitsTreeImplementation/blob/main/FruitsTree.PNG)
+
+Methods Implemtation:
  
 - Iterate():
             a method that prints the in-order traversal of the tree.
@@ -42,7 +44,6 @@ Object Oriented Features:
 - findLightest():
             a method that finds the node with the least weight in the tree.
             
-     
-![FruitsTree](https://github.com/radwaahmed20112000/FruitsTreeImplementation/blob/main/FruitsTree.PNG)
+
 
 
